@@ -1,36 +1,15 @@
-const todoControl =  document.querySelector(".todo-control"),
-      todoList    =  document.querySelector(".todo-list"),
-      todoCompleted =  document.querySelector(".todo-completed"),
-      todoContainer =  document.querySelector(".todo-container");
+const todoControl = document.querySelector(".todo-control"),
+      todoList    = document.querySelector(".todo-list"),
+      todoCompleted = document.querySelector(".todo-completed"),
+      todoContainer = document.querySelector(".todo-container");
 
-let obj =  [ ];
-let set_cookie= ( name, value, exp_y, exp_m, exp_d, path, domain, secure )=>
-{
-  var cookie_string =  name +  " = "  +  escape (  value );
-  if( exp_y){
-    var expires =  new Date ( exp_y,  exp_m,  exp_d );
-    cookie_string += "; expires=" +  expires.toGMTString();
-  }
-  if( path) cookie_string += "; path=" +  escape ( path );
+let obj = [];
 
-  if(domain) cookie_string += "; domain=" +  escape ( domain );
+let save=()=>{localStorage.setItem("objs", JSON.stringify(obj));}
 
-  if(secure) cookie_string += "; secure";
+let load=()=>{obj = JSON.parse(localStorage.getItem("objs"));}
 
-  document.cookie = cookie_string;
-}
-
-let get_cookie=( name)=>{
-  var results = document.cookie.match ('(^|;) ?' + name + '=([^;]*)(;|$)');
-  if(results) return (unescape(results[2]));
-  else return null;
-}
-
-let save=()=>{set_cookie("objs", JSON.stringify(obj));}
-
-let load=()=>{obj = JSON.parse(get_cookie("objs"));}
-
-window.onload = function(event){ load(); render(); };
+window.onload = function(event){ load(); render();};
 
 const render = () =>{
     save();
